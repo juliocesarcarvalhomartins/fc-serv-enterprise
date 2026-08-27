@@ -1,0 +1,17 @@
+FC SERV v3.2.6 - Atualizações
+
+- Busca de faturas no Gmail/IMAP ampliada para até 1.500 mensagens por conta.
+- Processamento dos e-mails mais recentes primeiro.
+- Extração melhorada de número da fatura, NF/NF-e, documento, vencimento e valor.
+- Identificação automática do fornecedor pelo remetente quando não houver transportadora conhecida.
+- Anexos PDF e XML registrados nas observações.
+- Proteção adicional contra mensagens repetidas durante a mesma sincronização.
+- Duplicidade continua protegida pela chave Transportadora/Fornecedor + número normalizado.
+- Botão "Abrir e-mail" adicionado à tabela de faturas.
+- Gmail abre por Message-ID; Outlook abre uma pesquisa pelo assunto/identificador.
+- Testes automatizados executados com sucesso.
+
+Para gerar o EXE no Windows:
+1. Extraia o ZIP.
+2. Execute GERAR_EXE.bat.
+3. O executável será criado em dist\FC_SERV.exe.

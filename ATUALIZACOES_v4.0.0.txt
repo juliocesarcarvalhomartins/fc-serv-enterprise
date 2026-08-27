@@ -1,0 +1,13 @@
+FC SERV 4.0.0
+
+- Nova aba Faturas Mensais.
+- Filtros por coluna no estilo Excel.
+- Edição de fatura, vencimento, valor e observações.
+- Perfis Administrador e Usuário com menus separados.
+- PostgreSQL suportado por DATABASE_URL e Docker Compose.
+- Faturas válidas importadas são marcadas como lidas no Outlook/IMAP.
+- Abertura direta da mensagem no Outlook clássico no Windows.
+- Gmail continua abrindo por busca do Message-ID.
+- Logs de auditoria por usuário, IP, ação e status.
+
+Produção: configure DATABASE_URL com PostgreSQL e execute o servidor em uma máquina central.

@@ -1,0 +1,9 @@
+FC SERV Enterprise v5.1.0
+
+- Usa a mesma conta do Outlook para duas buscas independentes.
+- Classifica cobranças em Fretes a Pagar e Serviços a Pagar.
+- Analisa assunto, remetente, corpo e nomes de anexos.
+- Casos fora do padrão vão para Revisar classificação.
+- Permite corrigir manualmente para Frete ou Serviço.
+- Mantém abertura direta do e-mail no Outlook e bloqueio de duplicidade.
+- Migração automática do banco sem apagar dados existentes.

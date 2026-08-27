@@ -1,0 +1,10 @@
+FC SERV Enterprise v5.1.1 — Correção da importação Excel
+
+- Corrige planilhas que não apareciam nas tabelas.
+- Não exige mais que a aba tenha exatamente o nome “CONTROLE DE FATURAS”.
+- Localiza automaticamente a linha dos cabeçalhos.
+- Aceita nomes alternativos como Fornecedor, Transportadora, Fatura, NF, Vencimento e Valor.
+- Mantém compatibilidade com o modelo antigo do FC SERV.
+- Encaminha linhas para Fretes a pagar ou Serviços a pagar conforme o conteúdo/tipo.
+- Mostra ao final quantos fretes, serviços, duplicatas e linhas ignoradas foram encontrados.
+- Exporta uma coluna TIPO para preservar a separação entre frete e serviço.

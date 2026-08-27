@@ -1,0 +1,10 @@
+FC SERV v3.2.6 - MELHORIAS DE FATURAMENTO
+
+1. O número da fatura virou um link: ao clicar, abre a mensagem correspondente no Gmail/Outlook.
+2. Nova ação Editar para corrigir transportadora, número, vencimento, valor e observações.
+3. A sincronização IMAP pesquisa somente mensagens não lidas (UNSEEN) e usa BODY.PEEK para não alterar o estado do e-mail.
+4. Filtro de e-mails reforçado com base nos exemplos fornecidos: aceita assuntos de fatura/faturamento/cobrança de frete e rejeita protocolos, comprovantes, cotações e coletas sem fatura.
+5. Extração melhorada para formatos como Fatura No. 32489, FATURA SAVE 12640, F/1090-2026, Nº8189 e lembretes de vencimento.
+6. Duplicidade permanece bloqueada por transportadora + número normalizado e também por Message-ID durante a sincronização.
+7. Busca limitada aos e-mails mais recentes e processamento em ordem decrescente para melhor velocidade.
+8. Testes automatizados: 4 aprovados.

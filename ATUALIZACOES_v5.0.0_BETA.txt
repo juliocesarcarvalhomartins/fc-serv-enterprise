@@ -1,0 +1,14 @@
+FC SERV ENTERPRISE 5.0 BETA - BUILD 1
+
+- Identificação BETA em toda a interface.
+- Conta proprietária exclusiva criada automaticamente: jcz.
+- A senha inicial deve ser definida pela variável de ambiente FC_SERV_OWNER_PASSWORD antes do primeiro acesso.
+- Demais contas são criadas como usuários comuns.
+- Logs de auditoria completos exclusivos do proprietário.
+- Perfis owner/admin/user preparados.
+- Banco ampliado com mensagens processadas, histórico de faturas, anexos e configurações.
+- PostgreSQL continua suportado via DATABASE_URL.
+- Índices e restrições de duplicidade mantidos.
+- Base pronta para evoluir para Admin e Operador separados.
+
+AVISO: versão BETA para testes. Não usar em produção sem trocar senhas, configurar backup e PostgreSQL.

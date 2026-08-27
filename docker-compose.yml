@@ -1,0 +1,34 @@
+services:
+  database:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: fatura_control
+      POSTGRES_USER: fatura_control
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Defina POSTGRES_PASSWORD no arquivo .env}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U fatura_control -d fatura_control"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  app:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      database:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql+psycopg://fatura_control:${POSTGRES_PASSWORD}@database:5432/fatura_control
+      FATURA_DATA_DIR: /data
+      FATURA_COOKIE_SECURE: ${FATURA_COOKIE_SECURE:-0}
+    volumes:
+      - app_secrets:/data
+    ports:
+      - "${FATURA_PORT:-8080}:8080"
+
+volumes:
+  postgres_data:
+  app_secrets:

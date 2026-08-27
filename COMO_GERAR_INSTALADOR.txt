@@ -1,0 +1,15 @@
+FC SERV v4.0.0 - INSTALADOR PARECIDO COM A VERSAO 3.2.3
+
+1. Extraia este ZIP em uma pasta.
+2. Clique duas vezes em GERAR_INSTALADOR_EXE.bat.
+3. O gerador instala o Bun automaticamente quando necessário.
+4. Ao concluir, será criado:
+   Instalar_FC_SERV_v4.0.0.exe
+
+O instalador criado:
+- funciona como executável único;
+- extrai os arquivos em AppData Local;
+- cria atalhos FC SERV e FC SERV - Servidor na área de trabalho;
+- usa a logo do FC SERV;
+- inicia INSTALAR_E_INICIAR.bat automaticamente;
+- mantém as melhorias da versão 4.0.0.

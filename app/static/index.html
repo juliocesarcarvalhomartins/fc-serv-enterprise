@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FC SERV Enterprise 5.0 BETA</title>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico?v=5.0.0-beta.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/static/fc-serv-logo.png?v=5.0.0-beta.1">
+  <link rel="apple-touch-icon" href="/static/fc-serv-logo.png?v=5.0.0-beta.1">
+  <link rel="stylesheet" href="/static/styles.css?v=5.0.0-beta.1">
+</head>
+<body>
+  <div id="authScreen" class="auth-screen">
+    <div class="auth-particles" aria-hidden="true"></div>
+    <section class="auth-showcase">
+      <div class="hero-brand">
+        <img src="/static/fc-serv-logo.png" alt="Logo FC SERV" class="hero-logo">
+        <div><h1>FC <span>SERV</span></h1><p>ENTERPRISE BETAFISSIONAL DE FATURAS</p></div>
+      </div>
+    </section>
+    <section class="auth-panel">
+      <div class="auth-card">
+        <div class="auth-card-title"><span>◇</span><div><h2>Acesso seguro</h2><p>Entre no FC SERV Enterprise 5.0 BETA</p></div></div>
+        <button id="loginModeBtn" class="auth-mode-bar" type="button"><span>↪ Entrar</span><small>ACESSO INTERNO</small></button>
+        <form id="setupForm" class="auth-form hidden">
+          <div class="welcome"><h2>Primeiro acesso</h2><p>Crie o administrador proprietário do servidor.</p></div>
+          <label>Seu nome<input name="name" required minlength="2" autocomplete="name" placeholder="Digite seu nome"></label>
+          <label>Usuário<input name="username" required minlength="3" autocomplete="username" placeholder="Crie seu usuário"></label>
+          <label>Senha<input name="password" required minlength="8" type="password" autocomplete="new-password" placeholder="Mínimo de 8 caracteres"><small>Mínimo de 8 caracteres.</small></label>
+          <button class="button primary full" type="submit">Criar administrador</button>
+        </form>
+        <form id="loginForm" class="auth-form hidden">
+          <label>Usuário<input name="username" required autocomplete="username" placeholder="Digite seu usuário"></label>
+          <label>Senha<input name="password" required type="password" autocomplete="current-password" placeholder="Digite sua senha"></label>
+          <button class="button primary full" type="submit">Entrar no FC SERV</button>
+        </form>
+      </div>
+    </section>
+  </div>
+
+  <div id="appShell" class="app-shell hidden">
+    <aside class="sidebar">
+      <div class="brand"><img src="/static/fc-serv-logo.png" alt="FC SERV" class="sidebar-logo"><div><strong>FC SERV</strong><span>ENTERPRISE 5.0 BETA</span></div></div>
+      <nav>
+        <button class="nav-item active" data-view="pending"><i>◷</i><span>Faturas a liberar</span><b id="pendingBadge">0</b></button>
+        <button class="nav-item" data-view="completed"><i>✓</i><span>Fretes concluídos</span><b id="completedBadge">0</b></button>
+        <button class="nav-item" data-view="services"><i>⚙</i><span>Serviços a pagar</span></button>
+        <button class="nav-item" data-view="review"><i>?</i><span>Revisar classificação</span></button>
+        <button class="nav-item" data-view="monthly"><i>▦</i><span>Faturas mensais</span></button>
+        <button class="nav-item admin-only" data-view="accounts"><i>✉</i><span>Contas de e-mail</span></button>
+        <button class="nav-item admin-only" data-view="users"><i>♙</i><span>Usuários</span></button>
+        <button class="nav-item admin-only" data-view="activities"><i>≡</i><span>Atividades</span></button>
+      </nav>
+      <div class="sidebar-footer"><div class="user-mini"><span id="userInitial">A</span><div><strong id="userName">Administrador</strong><small id="userRole">Administrador</small></div></div><button id="logoutBtn" class="icon-button" title="Sair">↪</button></div>
+    </aside>
+
+    <main>
+      <header class="topbar">
+        <button id="menuBtn" class="menu-button" aria-label="Abrir menu">☰</button>
+        <div><h1 id="pageTitle">Faturas a liberar</h1><p id="pageSubtitle">Acompanhe e libere o fluxo GKO e SAVE.</p></div>
+        <div class="header-actions">
+          <button id="excelManageBtn" class="button ghost admin-only">Planilha Excel</button>
+          <input id="excelInput" class="hidden" type="file" accept=".xlsx">
+          <input id="excelReplaceInput" class="hidden" type="file" accept=".xlsx">
+          <a class="button ghost" href="/api/excel/export">Exportar Excel</a>
+          <button id="syncBtn" class="button primary">Buscar e-mails</button>
+        </div>
+      </header>
+
+      <section id="invoiceView" class="view">
+        <div class="stats-grid">
+          <article class="stat-card"><span>Total cadastrado</span><strong id="statTotal">0</strong><i class="blue">▣</i></article>
+          <article class="stat-card"><span>Aguardando SAVE</span><strong id="statPending">0</strong><i class="yellow">◷</i></article>
+          <article class="stat-card"><span>Faturas concluídas</span><strong id="statCompleted">0</strong><i class="green">✓</i></article>
+          <article class="stat-card"><span>Aguardando GKO</span><strong id="statGko">0</strong><i class="red">!</i></article>
+        </div>
+
+        <section class="content-card">
+          <div class="toolbar">
+            <div class="search-box">⌕<input id="invoiceSearch" placeholder="Buscar por transportadora ou número..."></div>
+            <button id="newInvoiceBtn" class="button primary">+ Nova fatura</button>
+          </div>
+          <div class="table-scroll">
+            <table>
+              <thead><tr><th>Fornecedor / Transportadora</th><th>Fatura</th><th>Vencimento</th><th>Valor</th><th>Origem</th><th>GKO</th><th>SAVE</th><th>Ações</th></tr><tr class="excel-filters"><th><input data-filter="carrier" placeholder="Filtrar..."></th><th><input data-filter="invoice" placeholder="Filtrar..."></th><th><input data-filter="due" type="date"></th><th><input data-filter="amount" placeholder="Valor..."></th><th><select data-filter="source"><option value="">Todos</option><option value="email">E-mail</option><option value="excel">Excel</option><option value="manual">Manual</option></select></th><th><select data-filter="gko"><option value="">Todos</option><option value="true">Liberado</option><option value="false">Pendente</option></select></th><th><select data-filter="save"><option value="">Todos</option><option value="true">Lançado</option><option value="false">Pendente</option></select></th><th><button id="clearFilters" class="button ghost mini">Limpar</button></th></tr></thead>
+              <tbody id="invoiceRows"></tbody>
+            </table>
+          </div>
+          <div id="invoiceEmpty" class="empty-state hidden"><div>▤</div><h3>Nenhuma fatura encontrada</h3><p>Importe uma planilha, busque os e-mails ou cadastre manualmente.</p></div>
+        </section>
+      </section>
+
+
+      <section id="monthlyView" class="view hidden">
+        <div class="monthly-toolbar content-card">
+          <label>Mês<select id="monthlyMonth"></select></label><label>Ano<input id="monthlyYear" type="number" min="2000" max="2100"></label><label>Transportadora<input id="monthlyCarrier" placeholder="Todas"></label><label>Status<select id="monthlyStatus"><option value="all">Todos</option><option value="pending">Pendentes</option><option value="completed">Concluídas</option></select></label><button id="monthlyApply" class="button primary">Aplicar filtros</button>
+        </div>
+        <div class="stats-grid"><article class="stat-card"><span>Valor do mês</span><strong id="monthTotal">R$ 0,00</strong><i class="blue">R$</i></article><article class="stat-card"><span>Quantidade</span><strong id="monthCount">0</strong><i class="yellow">▤</i></article><article class="stat-card"><span>Concluídas</span><strong id="monthCompleted">0</strong><i class="green">✓</i></article><article class="stat-card"><span>Vencidas</span><strong id="monthOverdue">0</strong><i class="red">!</i></article></div>
+        <section class="content-card"><div class="toolbar"><div><h2>Faturas mensais</h2><p>Visão consolidada com filtros e edição.</p></div><a class="button ghost" href="/api/excel/export">Exportar Excel</a></div><div class="table-scroll"><table><thead><tr><th>Data</th><th>Fornecedor / Transportadora</th><th>Fatura</th><th>Vencimento</th><th>Valor</th><th>GKO</th><th>SAVE</th><th>Ações</th></tr></thead><tbody id="monthlyRows"></tbody></table></div></section>
+      </section>
+
+      <section id="accountsView" class="view hidden">
+        <section class="content-card">
+          <div class="toolbar"><div><h2>Contas conectadas</h2><p>O aplicativo importa faturas válidas e marca essas mensagens como lidas no Outlook.</p></div><button id="newAccountBtn" class="button primary">+ Adicionar conta</button></div>
+          <div id="accountCards" class="cards-list"></div>
+          <div id="accountsEmpty" class="empty-state hidden"><div>✉</div><h3>Nenhuma conta cadastrada</h3><p>Adicione uma conta Outlook ou Gmail usando uma senha de aplicativo.</p></div>
+        </section>
+      </section>
+
+      <section id="usersView" class="view hidden">
+        <section class="content-card">
+          <div class="toolbar"><div><h2>Usuários do sistema</h2><p>Crie acessos comuns; o administrador proprietário permanece protegido.</p></div><button id="newUserBtn" class="button primary">+ Novo usuário</button></div>
+          <div class="table-scroll"><table><thead><tr><th>Nome</th><th>Usuário</th><th>Perfil</th><th>Status</th><th>Ação</th></tr></thead><tbody id="userRows"></tbody></table></div>
+        </section>
+      </section>
+
+      <section id="activitiesView" class="view hidden">
+        <section class="content-card">
+          <div class="toolbar"><div><h2>Histórico de atividades</h2><p>Registro central das ações feitas por cada usuário e máquina.</p></div><button class="button ghost" onclick="loadActivities()">Atualizar</button></div>
+          <div class="table-scroll"><table><thead><tr><th>Data e hora</th><th>Usuário</th><th>Ação</th><th>Status</th><th>Endereço da máquina</th></tr></thead><tbody id="activityRows"></tbody></table></div>
+          <div id="activitiesEmpty" class="empty-state hidden"><div>≡</div><h3>Nenhuma atividade registrada</h3><p>As novas ações dos usuários aparecerão aqui.</p></div>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <div id="modal" class="modal hidden" role="dialog" aria-modal="true">
+    <div class="modal-card"><button id="modalClose" class="modal-close" aria-label="Fechar">×</button><div id="modalContent"></div></div>
+  </div>
+  <div id="loading" class="loading hidden"><div class="spinner"></div><strong id="loadingText">Processando...</strong></div>
+  <div id="toast" class="toast"></div>
+  <script src="/static/app.js?v=5.0.0-beta.1"></script>
+</body>
+</html>
